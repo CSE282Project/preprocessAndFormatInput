@@ -49,8 +49,11 @@ public class GetCTCFMotifs {
                 genome.append(genomeInputs.get(i));
             }
             
+            List differenceInMotifPositions=new ArrayList();
+            
             List <String> motifs=new <String> ArrayList();
             int minimumK=100000000;
+            int lastPos=0;
             for(int i=1;i<inputs.size();i++){
                 StringTokenizer row = new StringTokenizer(inputs.get(i),"\t");
                 String id=row.nextToken();
@@ -64,6 +67,7 @@ public class GetCTCFMotifs {
                     int start=Integer.parseInt(positionData.nextToken());
                     int end=Integer.parseInt(positionData.nextToken());
                     int len=end-start;
+                    differenceInMotifPositions.add(start-lastPos);
                     motifs.add(genome.substring(start,end));
                     if(len<minimumK)
                         minimumK=len;
@@ -71,6 +75,11 @@ public class GetCTCFMotifs {
                 
             }
             
+            for(int i=0;i<differenceInMotifPositions.size();i++){
+                out.print(differenceInMotifPositions.get(i));
+                out.print("\t");
+            }
+            /*
             StringBuilder processedGenome=new StringBuilder();
             for(int i=0;i<genome.length();i++){
                 if(genome.charAt(i)!='N'){
@@ -84,6 +93,7 @@ public class GetCTCFMotifs {
             for(int i=0;i<motifs.size();i++){
                 out.println(motifs.get(i).substring(0,minimumK).toUpperCase());
             }
+            */
             
             out.close();
         
