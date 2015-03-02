@@ -71,7 +71,15 @@ public class GetCTCFMotifs {
                 
             }
             
-            out.println(genome);
+            StringBuilder processedGenome=new StringBuilder();
+            for(int i=0;i<genome.length();i++){
+                if(genome.charAt(i)!='N'){
+                    processedGenome.append(genome.charAt(i));
+                }
+            }
+            
+            out.println(processedGenome.toString().toUpperCase());
+            
             out.println(minimumK);
             for(int i=0;i<motifs.size();i++){
                 out.println(motifs.get(i).substring(0,minimumK).toUpperCase());
